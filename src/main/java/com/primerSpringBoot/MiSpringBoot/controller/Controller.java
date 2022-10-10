@@ -4,6 +4,7 @@ import com.primerSpringBoot.MiSpringBoot.model.Persona;
 import com.primerSpringBoot.MiSpringBoot.service.IPersonaService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ public class Controller {
     @Autowired
     IPersonaService persoServ;
 
+//    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/new/persona")
     //RequestBody solicitud al servidor
     public String agregarPersona(@RequestBody Persona pers) {
@@ -34,6 +36,7 @@ public class Controller {
         return persoServ.verPersona();
     }
 
+//    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete/{id}")
     public String borrarPersona(@PathVariable Long id) {
         persoServ.borrarPersona(id);
@@ -41,8 +44,9 @@ public class Controller {
     }
 
     //Para editar una persona 
+//    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/editar/persona/{id}")
-    public Persona crearNuevaPersona(@PathVariable Long id,
+    public Persona editarPersona(@PathVariable Long id,
             @RequestParam("nombre") String nuevoNombre,
             @RequestParam("apellido") String nuevoApellido) {
         Persona persona = persoServ.buscarPersona(id);
@@ -54,9 +58,5 @@ public class Controller {
         return persona;
     }
 
-    /*
-    @GetMapping("/hola")
-    public String decirHola() {
-        return "Hola Mundo";
-    }*/
+
 }
