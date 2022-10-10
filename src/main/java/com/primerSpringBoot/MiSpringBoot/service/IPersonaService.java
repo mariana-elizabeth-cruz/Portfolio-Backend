@@ -8,10 +8,12 @@ public interface IPersonaService {
     
     //metodo para traer todas la personas
     public List<Persona> verPersona();
-//    metodo para dar dxe alta a una persona
-    public void crearPersona (Persona per);
+//    metodo para dar alta a una persona
+    public String crearPersona (Persona per);
 //    metodo para borrar una persona
-    public void borrarPersona(Long id);
+    public String borrarPersona(Long id);
 //    metodo para encontrar una persona
     public Persona buscarPersona(Long id);
+//    metodo para editar
+    public Persona editarPersona(Long id, Persona nombre, Persona apellido);
 }

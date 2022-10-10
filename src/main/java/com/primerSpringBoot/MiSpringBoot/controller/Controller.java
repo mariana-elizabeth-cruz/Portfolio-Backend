@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class Controller {
     
     @Autowired
-    private IPersonaService persoServ;
+    IPersonaService persoServ;
     
     @PostMapping ("/new/persona")
     //RequestBody solicitud al servidor
