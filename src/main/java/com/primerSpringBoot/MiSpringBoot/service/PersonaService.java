@@ -19,15 +19,13 @@ public class PersonaService implements IPersonaService{
     }
 
     @Override
-    public String crearPersona(Persona per) {
+    public void crearPersona(Persona per) {
         persoRepo.save(per);
-        return "";
     }
 
     @Override
-    public String borrarPersona(Long id) {
+    public void borrarPersona(Long id) {
         persoRepo.deleteById(id);
-        return "";
     }
 
     @Override
@@ -35,10 +33,6 @@ public class PersonaService implements IPersonaService{
 //        sino encuentra a la persona devuelve null por eso el orElse
         return persoRepo.findById(id).orElse(null);
     }
-//   falta terminar 
-    @Override
-    public Persona editarPersona(Long id, Persona nombre, Persona apellido) {
-        return persoRepo.findById(id).orElse(null);
-    }
+
     
 }

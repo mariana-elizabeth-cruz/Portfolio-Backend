@@ -1,4 +1,3 @@
-
 package com.primerSpringBoot.MiSpringBoot.controller;
 
 import com.primerSpringBoot.MiSpringBoot.model.Persona;
@@ -11,46 +10,50 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class Controller {
-    
+
     @Autowired
     IPersonaService persoServ;
-    
-    @PostMapping ("/new/persona")
+
+    @PostMapping("/new/persona")
     //RequestBody solicitud al servidor
-    public void agregarPersona(@RequestBody Persona pers){
+    public String agregarPersona(@RequestBody Persona pers) {
         persoServ.crearPersona(pers);
+        return "La persona fue creada exitosamente!";
     }
-    
-    @GetMapping ("/ver/personas")
+
+    @GetMapping("/ver/personas")
     //Response para responder al cliente
     @ResponseBody
-    public List<Persona> verPersona(){
+    public List<Persona> verPersona() {
         return persoServ.verPersona();
     }
-    
-    @DeleteMapping ("/delete/{id}")
-    public void borrarPersona(@PathVariable Long id){
+
+    @DeleteMapping("/delete/{id}")
+    public String borrarPersona(@PathVariable Long id) {
         persoServ.borrarPersona(id);
+        return "Se elimino una persona";
     }
-    
+
     //Para editar una persona 
-    @PutMapping ("/new/persona")
-    public void crearNuevaPersona(@RequestBody Persona pers) {
-        persoServ.crearPersona(pers);
+    @PutMapping("/editar/persona/{id}")
+    public Persona crearNuevaPersona(@PathVariable Long id,
+            @RequestParam("nombre") String nuevoNombre,
+            @RequestParam("apellido") String nuevoApellido) {
+        Persona persona = persoServ.buscarPersona(id);
+
+        persona.setNombre(nuevoNombre);
+        persona.setApellido(nuevoApellido);
+        persoServ.crearPersona(persona);
+
+        return persona;
     }
-    
-    
-    
-    
-    
-    
-    
-    
+
     /*
     @GetMapping("/hola")
     public String decirHola() {
