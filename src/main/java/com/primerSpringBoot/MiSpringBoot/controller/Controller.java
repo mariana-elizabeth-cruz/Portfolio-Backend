@@ -48,11 +48,13 @@ public class Controller {
     @PutMapping("/editar/persona/{id}")
     public Persona editarPersona(@PathVariable Long id,
             @RequestParam("nombre") String nuevoNombre,
-            @RequestParam("apellido") String nuevoApellido) {
+            @RequestParam("apellido") String nuevoApellido, 
+            @RequestParam("imagen") String nuevoImg) {
         Persona persona = persoServ.buscarPersona(id);
 
         persona.setNombre(nuevoNombre);
         persona.setApellido(nuevoApellido);
+        persona.setImg(nuevoImg);
         persoServ.crearPersona(persona);
 
         return persona;
