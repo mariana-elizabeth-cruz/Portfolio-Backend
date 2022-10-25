@@ -1,11 +1,14 @@
 
 package com.primerSpringBoot.MiSpringBoot.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,12 +17,16 @@ import lombok.Setter;
 public class Persona implements Serializable {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
     private String apellido;
     private String img;
-
+    
+    @OneToMany(mappedBy = "persona")
+    @JsonBackReference
+    Set<HyS> hysList;
+    
     public Persona() {
     }
 

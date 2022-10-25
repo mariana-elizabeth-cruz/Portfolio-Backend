@@ -4,6 +4,7 @@ import com.primerSpringBoot.MiSpringBoot.model.Persona;
 import com.primerSpringBoot.MiSpringBoot.service.IPersonaService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 //import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class Controller {
 
     @Autowired
@@ -58,6 +60,11 @@ public class Controller {
         persoServ.crearPersona(persona);
 
         return persona;
+    }
+    
+    @GetMapping("/persona/traer/perfil")
+    public Persona findPersona(){
+        return persoServ.buscarPersona((long)1);
     }
 
 
