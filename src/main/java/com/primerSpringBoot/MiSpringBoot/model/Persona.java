@@ -26,7 +26,17 @@ public class Persona implements Serializable {
     @OneToMany(mappedBy = "persona")
     @JsonBackReference
     Set<HyS> hysList;
-    
+    @OneToMany(mappedBy = "persona")
+    @JsonBackReference
+    Set<Educacion> educacion;
+    @OneToMany(mappedBy = "persona")
+    @JsonBackReference
+    Set<Experiencia> experiencia;
+    @OneToMany(mappedBy = "persona")
+    @JsonBackReference
+    Set<Proyecto> proyecto;
+            
+            
     public Persona() {
     }
 
