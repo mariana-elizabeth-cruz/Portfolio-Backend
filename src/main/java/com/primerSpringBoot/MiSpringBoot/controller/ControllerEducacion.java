@@ -1,4 +1,3 @@
-
 package com.primerSpringBoot.MiSpringBoot.controller;
 
 import org.apache.commons.lang3.StringUtils;
@@ -22,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/eduacion")
+@RequestMapping("/educacion")
 public class ControllerEducacion {
     
     @Autowired
@@ -34,10 +33,10 @@ public class ControllerEducacion {
         return new ResponseEntity(list, HttpStatus.OK);
     }
     
-    @GetMapping("/detalle/{id}")
+    @GetMapping("/detail/{id}")
     public ResponseEntity<Educacion> getById(@PathVariable("id") int id) {
        if(!eduservice.existsById(id)) {
-           return new ResponseEntity(new Mensaje("No existe el id"), HttpStatus.NOT_FOUND);
+           return new ResponseEntity(new Mensaje("No existe el id"), HttpStatus.BAD_REQUEST);
        }
        Educacion edu = eduservice.getOne(id).get();
        return new ResponseEntity(edu, HttpStatus.OK);
@@ -49,18 +48,18 @@ public class ControllerEducacion {
             return new ResponseEntity(new Mensaje("No existe el id"), HttpStatus.NOT_FOUND);
         }
         eduservice.delete(id);
-        return new ResponseEntity(new Mensaje("Educacion eliminada"), HttpStatus.OK);
+        return new ResponseEntity(new Mensaje("Educación eliminada"), HttpStatus.OK);
     }
     
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody DtoEducacion dtoedu) {
         if(StringUtils.isBlank(dtoedu.getNomEscuela())) {
-            return new ResponseEntity(new Mensaje("El nombre de Institución es obligatorio"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new Mensaje("El nombre de la Institución es obligatorio"), HttpStatus.BAD_REQUEST);
         }
-        if(eduservice.existsByNombre(dtoedu.getNomEscuela())){
+        if(eduservice.existsByNomEscuela(dtoedu.getNomEscuela())){
             return new ResponseEntity(new Mensaje("El nombre de la Institución ya existe"), HttpStatus.BAD_REQUEST);
         }
-        Educacion edu = new Educacion(dtoedu.getNomEscuela(), dtoedu.getDescripcion(), dtoedu.getCiudad());
+        Educacion edu = new Educacion(dtoedu.getNomEscuela(), dtoedu.getDescripcion(), dtoedu.getCiudad(), dtoedu.getFechaInicio(), dtoedu.getFechaFin());
         eduservice.save(edu);
         
         return new ResponseEntity(new Mensaje("Institución agregada"), HttpStatus.OK);
@@ -72,10 +71,12 @@ public class ControllerEducacion {
         if(!eduservice.existsById(id)) {
             return new ResponseEntity(new Mensaje("El id no existe"), HttpStatus.NOT_FOUND);
         }
-        if(!eduservice.existsByNombre(dtoedu.getNomEscuela()) && eduservice.getByNombre(dtoedu.getNomEscuela())
+//        valida el nombre
+        if(eduservice.existsByNomEscuela(dtoedu.getNomEscuela()) && eduservice.getByNomEscuela(dtoedu.getNomEscuela())
                 .get().getId() != id) {
             return new ResponseEntity(new Mensaje("Esa Institución ya existe"), HttpStatus.BAD_REQUEST);
         }
+        
 //        verifca que los campos no estes vacios
         if(StringUtils.isBlank(dtoedu.getNomEscuela())) {
             return new ResponseEntity(new Mensaje("El nombre de la Institución es obligatorio"), HttpStatus.BAD_REQUEST);
@@ -85,12 +86,14 @@ public class ControllerEducacion {
         }
         if(StringUtils.isBlank(dtoedu.getCiudad())){
             return new ResponseEntity(new Mensaje("Debe ingresar el nombre de la ciudad"), HttpStatus.BAD_REQUEST);
-        }
+        } 
         
         Educacion edu = eduservice.getOne(id).get();
         edu.setNomEscuela(dtoedu.getNomEscuela());
         edu.setDescripcion(dtoedu.getDescripcion());
         edu.setCiudad(dtoedu.getCiudad());
+        edu.setFechaInicio(dtoedu.getFechaInicio());
+        edu.setFechaFin(dtoedu.getFechaFin());
         
         eduservice.save(edu);
         return new ResponseEntity(new Mensaje("Educación actualizada"), HttpStatus.OK);

@@ -21,6 +21,8 @@ public class Educacion {
     private String nomEscuela;
     private String descripcion;
     private String ciudad;
+    private String fechaInicio;
+    private String fechaFin;
     
     @ManyToOne
     @JoinColumn(name = "per_id")
@@ -30,11 +32,12 @@ public class Educacion {
     public Educacion() {
     }
 
-    public Educacion(String nomEscuela, String descripcion, String ciudad) {
+    public Educacion(String nomEscuela, String descripcion, String ciudad, String fechaInicio, String fechaFin) {
         this.nomEscuela = nomEscuela;
         this.descripcion = descripcion;
         this.ciudad = ciudad;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
     }
-    
-    
+        
 }

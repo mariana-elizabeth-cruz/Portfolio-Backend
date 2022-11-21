@@ -39,6 +39,7 @@ public class SHyS {
     public boolean existsById(int id){
         return rhys.existsById(id);
     }
+    
     public boolean existsByNombre(String nombre){
         return rhys.existsByNombre(nombre);
     }

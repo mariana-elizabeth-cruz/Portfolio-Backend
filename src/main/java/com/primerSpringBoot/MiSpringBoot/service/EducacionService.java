@@ -1,4 +1,3 @@
-
 package com.primerSpringBoot.MiSpringBoot.service;
 
 import com.primerSpringBoot.MiSpringBoot.model.Educacion;
@@ -12,37 +11,40 @@ import org.springframework.stereotype.Service;
 @Transactional
 @Service
 public class EducacionService {
-    
+
     @Autowired
     EducacionRepository educacionRepo;
-    
-    public List<Educacion> list(){
+
+    public List<Educacion> list() {
         return educacionRepo.findAll();
     }
-    
-    public Optional<Educacion> getOne(int id){
+
+    public Optional<Educacion> getOne(int id) {
         return educacionRepo.findById(id);
     }
-    
-    public Optional<Educacion> getByNombre(String nombre){
-        return educacionRepo.findByNomEscuela(nombre);
+
+    public Optional<Educacion> getByNomEscuela(String nomEscuela) {
+        if (nomEscuela.isEmpty()) {
+            return null;
+        } else {
+            return educacionRepo.findByNomEscuela(nomEscuela);
+        }
     }
-    
-    public void save(Educacion edu){
+
+    public void save(Educacion edu) {
         educacionRepo.save(edu);
     }
-    
-    public void delete(int id){
+
+    public void delete(int id) {
         educacionRepo.deleteById(id);
     }
-    
-    public boolean existsById(int id){
+
+    public boolean existsById(int id) {
         return educacionRepo.existsById(id);
     }
-    
-    public boolean existsByNombre(String nombre){
-        return educacionRepo.existsByNomEscuela(nombre);
+
+    public boolean existsByNomEscuela(String nomEscuela) {
+        return educacionRepo.existsByNomEscuela(nomEscuela);
     }
-    
-    
+
 }
