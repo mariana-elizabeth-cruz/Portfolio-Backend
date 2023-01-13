@@ -19,7 +19,9 @@ public class Experiencia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String nombreExp;
-    private String duracion;
+    private String descripcion;
+    private String fechaInicio;
+    private String fechaFin;
     
     @ManyToOne
     @JoinColumn(name = "per_id")
@@ -29,11 +31,11 @@ public class Experiencia {
     public Experiencia() {
     }
 
-    public Experiencia(String nombreExp, String duracion) {
+    public Experiencia(String nombreExp, String descripcion, String fechaInicio, String fechaFin) {
         this.nombreExp = nombreExp;
-        this.duracion = duracion;
+        this.descripcion = descripcion;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
     }
-    
-    
     
 }
