@@ -34,7 +34,7 @@ public class ControllerExperiencia {
         return new ResponseEntity(list, HttpStatus.OK);
     }
     
-    @GetMapping("/detalle/{id}")
+    @GetMapping("/detail/{id}")
     public ResponseEntity<Experiencia> getById(@PathVariable("id") int id) {
         if(!expeService.existsById(id)) {
             return new ResponseEntity(new Mensaje("No existe el id de experiencia"), HttpStatus.BAD_REQUEST);
@@ -43,7 +43,7 @@ public class ControllerExperiencia {
         return new ResponseEntity(exp, HttpStatus.OK);
     }
     
-    @DeleteMapping("/eliminar/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") int id) {
         if(!expeService.existsById(id)){
             return new ResponseEntity(new Mensaje("No existe el id"), HttpStatus.NOT_FOUND);
@@ -51,7 +51,7 @@ public class ControllerExperiencia {
         expeService.delete(id);
         return new ResponseEntity(new Mensaje("Experiencia eliminada"), HttpStatus.OK);
     }
-    @PostMapping("/crear")
+    @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody DtoExperiencia dtoexp) {
         if(StringUtils.isBlank(dtoexp.getNombreExp())) {
             return new ResponseEntity(new Mensaje("El nombre de la experiencia es obligatorio"), HttpStatus.BAD_REQUEST);
@@ -65,7 +65,7 @@ public class ControllerExperiencia {
         return new ResponseEntity(new Mensaje("Experiencia cargada correctamente"), HttpStatus.OK);
     }
     
-    @PutMapping("/actualizar/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody DtoExperiencia dtoexpe) {
 //        validar id
         if(!expeService.existsById(id)) {
